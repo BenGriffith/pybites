@@ -1,11 +1,27 @@
+from itertools import count
+
 class Animal:
 
+    instances = list()
+    animal_sequence = count(10001, 1)
+
     def __init__(self, name):
-        pass
+        self._name = name.capitalize()
+        self.instances.append(self)
 
     def __str__(self):
-        pass
+        return f"{next(Animal.animal_sequence)}. {self._name}"
 
     @classmethod
     def zoo(cls):
-        pass
+        return "\n".join([cls_inst.__str__() for cls_inst in cls.instances])
+
+
+# if __name__ == "__main__":
+#     dog = Animal("dog")
+#     cat = Animal("cat")
+#     fish = Animal('fish')
+#     lion = Animal('lion')
+#     mouse = Animal('mouse')
+#     print(Animal.zoo())
+#     horse = Animal("horse")
