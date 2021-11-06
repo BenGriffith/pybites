@@ -8,13 +8,13 @@ def filter_accents(text):
    for i in range(len(text)):
       char = unicodedata.normalize("NFD", text[i]).encode("ascii", "ignore").decode("utf-8")
 
-      if char == text[i]:
+      if char.lower() == text[i].lower():
          continue
       else:
-         accent_chars.append(text[i])
+         accent_chars.append(text[i].lower())
 
    return accent_chars
 
 
-if __name__ == "__main__":
-   print(filter_accents("The cédille (cedilla) Ç ..."))
+# if __name__ == "__main__":
+#    print(filter_accents("The cédille (cedilla) Ç ..."))
