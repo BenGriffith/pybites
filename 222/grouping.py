@@ -15,25 +15,18 @@ def group(iterable, n):
          list: The list of groups of size n,
                where each group is a list of n elements.
     """
-    iterable_sliced = []
-    last = 0
-    for i in islice(iterable, n -1, len(iterable), n):
-      subset = iterable[i-n:i]
-      iterable_sliced.append(list(subset) if isinstance(iterable, tuple) else subset)
-      #yield iterable_sliced
-      
-      if iterable[i] == iterable[-1]:
-        iterable_sliced.append([iterable[-1]]) #if isinstance(iterable, tuple) else [iterable[-1])
-      
 
-    # if last != len(iterable):
-    #   iterable_sliced.append(iterable[last:])
-    return iterable_sliced
+    if not isinstance(iterable, types.GeneratorType):
+      input = (ele for ele in iterable)
+    else:
+      input = iterable
 
+    result = []
+    while True:
+      section = list(islice(input, n))
+      if section:
+        result.append(section)
+      else:
+        break
 
-# if __name__ == '__main__':
-#     iterable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] * 2
-#     iterable = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-#     n = 5
-#     ret = group(iterable, n)
-#     print(ret)
+    return result
