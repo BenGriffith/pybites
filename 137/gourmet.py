@@ -151,6 +151,8 @@ def match_wine_5cheeses():
         cheese = sorted(cheese, key=lambda x: (-x[1], x[0]))[:5]
         best_5matches.append((wine, [name for name, score in cheese]))
 
+    return best_5matches
+
     
 #if __name__ == "__main__":
     #print(best_match_per_wine("white"))
