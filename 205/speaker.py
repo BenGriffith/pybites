@@ -50,8 +50,8 @@ def get_percentage_of_female_speakers(first_names):
        of female speakers (female and mostly_female),
        rounded to 2 decimal places."""
     female_counter = 0
+    gender_guess = gender.Detector()
     for name in first_names:
-        gender_guess = gender.Detector()
         predicted_gender = gender_guess.get_gender(name)
         if predicted_gender in ["female", "mostly_female"]:
             female_counter += 1
