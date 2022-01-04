@@ -7,8 +7,6 @@ EOL_PUNCTUATION = ".!?"
 
 class Document:
     def __init__(self) -> None:
-        # it is up to you how to implement this method
-        # feel free to alter this method and its parameters to your liking
         self.document_strings = []
 
     def add_line(self, line: str, index: int = None) -> Document:
@@ -24,9 +22,9 @@ class Document:
             Document: The changed document with the new line.
         """
         if index == None:
-            self.document_strings.append(line)
+            self.document_strings.append(f"{line}\n")
         else:
-            self.document_strings.insert(index, line)
+            self.document_strings.insert(index, f"{line}\n")
 
         return self
 
@@ -65,19 +63,18 @@ class Document:
             if difference != 1:
                 in_row = False
 
-        merged_line = ""
-        removed_line = []
-        for i in indices:
-            merged_line += self.document_strings[i]
-            removed_line.append(self.document_strings[i])
+        merged_line = []
+        for i in range(len(indices)):
+            if i == 0:
+                merged_line.append(self.document_strings[indices[i]].strip("\n"))
+            else:
+                merged_line.append(self.document_strings[indices[i]])
 
-        while len(removed_line) > 0:
-            self.document_strings.remove(removed_line.pop())
-
-        if in_row:
-            self.document_strings.append(merged_line)
+        if in_row and len(indices) > 1:
+            self.document_strings[indices[0]] = " ".join(merged_line)
+            self.document_strings.pop(indices[1])
         else:
-            self.document_strings[0] = merged_line        
+            self.document_strings[0] = " ".join(merged_line)
         return self
 
 
@@ -92,71 +89,81 @@ class Document:
 
         Returns:
             Document: The document with the changed line.
-        """
-        line = self.document_strings[index]
-        new_line = line[:len(line)]
-        self.document_strings[index] = new_line + punctuation
+        """            
+        line = list(self.document_strings[index])
+        if len(line) == 1:
+            if line[0] == "\n":
+                line.insert(0, punctuation)
+        elif len(line) == 0:
+            line.append(punctuation)
+        elif len(line) > 1 and line[-2] not in EOL_PUNCTUATION:
+            line.insert(-1, punctuation)
+        else:
+            line[0] = punctuation
+
+        self.document_strings[index] = "".join(line)
         return self
 
     def word_count(self) -> int:
         """Return the total number of words in the document."""
-        return sum([len(line.split(" ")) for line in self.document_strings])
+        return len(self._remove_punctuation())
 
     @property
     def words(self) -> list:
         """Return a list of unique words, sorted and case insensitive."""
-        unique_words = set()
+        return self._remove_punctuation("unique")
+
+
+    def _remove_punctuation(self, values = None):
+        """Remove punctuation from a line. Return unique or non-unique structures."""
+        words = []
 
         for line in self.document_strings:
+            line = line.translate(str.maketrans("", "", EOL_PUNCTUATION + ","))
 
             for word in line.split(" "):
-                if word == "":
+                if word == "\n" or word == "":
                     continue
-
                 if word != "" and word[-1] in EOL_PUNCTUATION:
-                    unique_words.add(word[:len(word) -1].lower())
+                    words.append(word[:len(word) -1].lower())
                 else:
-                    unique_words.add(word.lower())
+                    words.append(word.strip(",").lower())
 
-        return sorted([*unique_words])
-
-    def _remove_punctuation(line: str) -> str:
-        """Remove punctuation from a line."""
-        # you can use this function as helper method for
-        # Document.word_count() and Document.words
-        # or you can totally ignore it
-        pass
+        if values == "unique":
+            return sorted([*set(word.strip("\n") for word in words)])
+        else:
+            return sorted(words)
 
     def __len__(self):
         """Return the length of the document (i.e. line count)."""
         line_count = 0
-        for line in self.document_strings:
+        for _ in self.document_strings:
             line_count += 1
         return line_count
 
     def __str__(self):
         """Return the content of the document as string."""
         content = ""
-        for line in self.document_strings:
-            content += line
+        for i in range(len(self.document_strings)):
+            if i == len(self.document_strings) -1:
+                line = self.document_strings[i].strip("\n")
+                content += f"{line}"
+            else:
+                content += f"{self.document_strings[i]}"
         return content
 
 
 if __name__ == "__main__":
 
-    d = (
-        Document()
-        .add_line("My second sentence.")
-        .add_line("My first sentence.")
-        .swap_lines(0, 1)
-        .add_line("Introduction", 0)
-        .add_punctuation("!", 0)
-        .add_line("")
-        .add_line("My second paragraph.")
-        .merge_lines([1, 2])
+    e = (
+        # Document()
+        # .add_line("This is the tale of a dwarf.")
+        # .add_line("")
+        # .add_line("A dwarf you ask?")
+        # .add_line("Yes, a dwarf and not any dwarf, so you know!")
+        Document().add_line("").swap_lines(0, 0).merge_lines([0]).add_punctuation(".", 0)
     )
 
-    #print(d)
-    #print(len(d))
-    print(d.word_count())
-    print(d.words)
+    print(e)
+    print(e.word_count())
+    print(e.words)
