@@ -57,6 +57,6 @@ class Account:
         return f"{self.name.capitalize()} account - balance: {self.balance}"
 
 
-if __name__ == "__main__":
-    checking = Account("checking")
-    print(len(checking))
+# if __name__ == "__main__":
+#     checking = Account("checking")
+#     print(len(checking))
