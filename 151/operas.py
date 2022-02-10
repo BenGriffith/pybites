@@ -3,7 +3,6 @@ from datetime import datetime
 
 Composer = namedtuple('Composer', 'name born died')
 Opera = namedtuple('Opera', 'author play date')
-Composer_Operas = namedtuple('ComposerOpera', 'title date')
 
 composers = {
     "beethoven": Composer("Ludwig van Beethoven",
@@ -74,21 +73,25 @@ def operas_both_at_premiere(guest, composer):
     if guest not in composers.keys() or composer not in composers.keys():
         raise ValueError
 
+    # date range of each guest
     # list of possible titles
     # date of each title
-    # date range of each guest
     # does title date fall within born died range of guest
-    operas_title_date = []
-    for opera in operas:
-        if opera.author == composer:
-            operas_title_date.append(Composer_Operas(opera.play, _get_date(opera.date)))
-    print(operas_title_date)
 
     guest_born = _get_date(composers[guest].born)
     guest_died = _get_date(composers[guest].died)
-    print(guest_born, guest_died)
+    composer_died = _get_date(composers[composer].died)
 
+    operas_title_date = []
+    for opera in operas:
+        if opera.author == composer:
+
+            opera_year = _get_date(opera.date).year
+            if guest_born.year < opera_year and guest_died.year > opera_year and composer_died.year >= opera_year:
+                operas_title_date.append(opera.play)
+
+    return operas_title_date
 
 
 if __name__ == "__main__":
-    operas_both_at_premiere("beethoven", "mozart")
+    print(operas_both_at_premiere("verdi", "wagner"))
