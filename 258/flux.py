@@ -28,6 +28,10 @@ def identify_flux(xyz: list) -> list:
     """
     flagged_lines = []
 
+    for flux in xyz:
+        if flux[0] >= THRESHOLDS[0] and flux[1] >= THRESHOLDS[1]:
+            flagged_lines.append()
+
     return flagged_lines
 
 
