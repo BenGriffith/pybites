@@ -56,20 +56,29 @@ def make_character_index(text=text, characters=CHARACTERS):
    """
    character_index = defaultdict(list)
    for i, row in enumerate(text.splitlines()):
+      row = row.lower()
 
       for character in characters:
          if isinstance(character, str):
-
+            character = character.lower()
             if character in row:
-               print(character)
                character_index[character].append(i)
-         # else:
-         #    for synonym in character:
-         #       if synonym in row:
-         #          print(synonym)
-                  #character_index[character].append(i)
-   print(character_index)
+         else:
+            for j, synonym in enumerate(character):
+               synonym = synonym.lower()
+               synonym_exist = False
+               if j == 0:
+                  synonym_first = synonym
+
+               if synonym in row:
+                  synonym_exist = True
+                  break
+                  
+            if synonym_exist:
+               character_index[synonym_first].append(i)
+   
+   return character_index
 
 
-if __name__ == "__main__":
-   make_character_index()
+# if __name__ == "__main__":
+#    print(make_character_index())
