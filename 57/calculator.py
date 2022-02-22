@@ -1,4 +1,5 @@
 import argparse
+from subprocess import call
 
 def calculator(operation, numbers):
     """TODO 1:
@@ -15,6 +16,19 @@ def calculator(operation, numbers):
                 result = number
                 continue
             result -= number
+    elif operation == "mul":
+        for i, number in enumerate(numbers):
+            if i == 0:
+                result = number
+                continue
+            result *= number
+    else:
+        for i in range(len(numbers)):
+            if i == 0:
+                result = numbers[i]
+                continue
+            result /= numbers[i]
+
     return round(result, 2)
 
 
@@ -27,7 +41,14 @@ def create_parser():
 
        Note that type=float times out here so do the casting in the calculator
        function above!"""
-    pass
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--add", type=str, nargs="+", required=False, help="Sums the numbers")
+    parser.add_argument("--sub", type=str, nargs="+", required=False, help="Subtracts numbers")
+    parser.add_argument("--mul", type=str, nargs="+", required=False, help="Multiplies numbers")
+    parser.add_argument("--div", type=str, nargs="+", required=False, help="Divides numbers")
+
+    return parser
 
 
 def call_calculator(args=None, stdout=False):
@@ -59,4 +80,6 @@ def call_calculator(args=None, stdout=False):
 
 if __name__ == '__main__':
     #call_calculator(stdout=True)
-    print(calculator("--sub", [10, 6, 2]))
+    #print(calculator("--div", ['2.2', '7', '1.1']))
+    #create_parser()
+    print(call_calculator())
