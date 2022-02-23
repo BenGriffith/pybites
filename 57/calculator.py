@@ -41,7 +41,7 @@ def create_parser():
 
        Note that type=float times out here so do the casting in the calculator
        function above!"""
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="A simple calculator")
 
     parser.add_argument("--add", type=str, nargs="+", required=False, help="Sums the numbers")
     parser.add_argument("--sub", type=str, nargs="+", required=False, help="Subtracts numbers")
@@ -78,8 +78,8 @@ def call_calculator(args=None, stdout=False):
         return res
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
     #call_calculator(stdout=True)
     #print(calculator("--div", ['2.2', '7', '1.1']))
     #create_parser()
-    print(call_calculator())
+#    print(call_calculator())
