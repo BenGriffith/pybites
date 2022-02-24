@@ -4,10 +4,10 @@ from typing import Dict
 def decompress(string: str, table: Dict[str, str]) -> str:
     
     if string == "":
-        return
+        return string
     
     if len(table) == 0:
-        return
+        return string
 
     result = list(string)
 
@@ -17,7 +17,19 @@ def decompress(string: str, table: Dict[str, str]) -> str:
             return 
 
         if result[i] in table:
-            result[i] = table[result[i]]
+            table_value = table[result[i]]
+
+            if len(table_value) > 1:
+    
+                for j in range(len(table_value)):
+                    if j == 0:
+                        result[i] = table_value[j]
+                    else:
+                        result.insert(i + j, table_value[j])
+
+            else:
+                result[i] = table_value
+                
             helper(table, 0)
         else:
             i += 1
@@ -27,13 +39,13 @@ def decompress(string: str, table: Dict[str, str]) -> str:
     
     return "".join(result)
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # print(decompress('P%Bi/e$', {'$': 's',
     #          '%': 'y',
     #          '/': 't'
     #          }))
 
-    print(decompress('cy300', {'*': 'c',
-             '#': '00',
-             '$': '*y',
-             }))
+    # print(decompress('$3#', {'*': 'c',
+    #          '#': '00',
+    #          '$': '*y',
+    #          }))
