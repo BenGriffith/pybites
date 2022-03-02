@@ -1,5 +1,4 @@
 from collections import Counter
-from datetime import tzinfo
 import os
 from urllib.request import urlretrieve
 
@@ -11,12 +10,7 @@ urlretrieve(
     commits
 )
 
-# you can use this constant as key to the yyyymm:count dict
-YEAR_MONTH = '{y}-{m:02d}'
-
-
-def get_min_max_amount_of_commits(commit_log: str = commits,
-                                  year: int = None) -> (str, str):
+def get_min_max_amount_of_commits(commit_log: str = commits, year: int = None) -> (str, str):
     """
     Calculate the amount of inserts / deletes per month from the
     provided commit log.
@@ -32,22 +26,18 @@ def get_min_max_amount_of_commits(commit_log: str = commits,
 
         for commit in commit_data:
             row_date, row_stats = commit.strip("\n").split("|")
-            row_date = parse(row_date.lstrip("Date:").strip(), ignoretz=True)
-            row_date_string = row_date.strftime('%Y-%m')
+            row_date = parse(row_date.lstrip("Date:").strip()).strftime('%Y-%m')
 
-            row_stats = row_stats.split(",")
-            if len(row_stats) == 3:
-                row_stats_changes = int(row_stats[1].strip()[0]) + int(row_stats[2].strip()[0])
-            else:
-                row_stats_changes = int(row_stats[1].strip()[0])
-
+            row_stats = row_stats.split(",")[1:]
+            changes = sum([int(row[:row.rfind(" ")].strip()) for row in row_stats])
+            
             if year:
-                if year == row_date.year:
-                    commit_changes.update({row_date_string: row_stats_changes})
+                if year == int(row_date[:row_date.find("-")]):
+                    commit_changes.update({row_date: changes})
             else:
-                commit_changes.update({row_date_string: row_stats_changes})
+                commit_changes.update({row_date: changes})
 
-    print(commit_changes)
+    return (commit_changes.most_common()[-1][0], commit_changes.most_common()[0][0])
 
-if __name__ == "__main__":
-    print(get_min_max_amount_of_commits(commits, 2018))
+# if __name__ == "__main__":
+#     print(get_min_max_amount_of_commits(commits, None))
