@@ -42,10 +42,10 @@ def most_popular_characters(characters=characters, top=5):
     """Get the most popular character by number of appearances,
        return top n characters (default 5)
     """
-    character_counter = Counter()
+    frequency_counter = Counter()
     for character in characters[:100]:
-        character_counter.update([character.name])
-    return [character[0] for character in character_counter.most_common()[:5]]
+        frequency_counter.update([character.name])
+    return [character[0] for character in frequency_counter.most_common()[:top]]
 
 
 def max_and_min_years_new_characters(characters=characters):
@@ -54,7 +54,11 @@ def max_and_min_years_new_characters(characters=characters):
        characters, or the 'year' attribute of the namedtuple, return a tuple
        of (max_year, min_year)
     """
-    pass
+    frequency_counter = Counter()
+    for character in characters:
+        if character.year != '':
+            frequency_counter.update([character.year])
+    return frequency_counter.most_common()[0][0], frequency_counter.most_common()[-1][0]
 
 
 def get_percentage_female_characters(characters=characters):
@@ -65,8 +69,18 @@ def get_percentage_female_characters(characters=characters):
        Agender and Genderfluid Characters.
        Return the result rounded to 2 digits
     """
-    pass
+    frequency_counter = Counter()
+    for character in characters:
+        if character.sex == "":
+            continue
+        frequency_counter.update([character.sex])
+    
+    total_gender = sum([int(value) for value in frequency_counter.values()])
+    female_percentage = round((int(frequency_counter["Female Characters"]) / total_gender) * 100, 2)
+    return female_percentage
 
 
 if __name__ == "__main__":
-    most_popular_characters()
+    #print(most_popular_characters())
+    #print(max_and_min_years_new_characters())
+    print(get_percentage_female_characters())
