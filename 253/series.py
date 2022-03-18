@@ -127,7 +127,7 @@ def custom_series_function(ser: pd.Series, within: int) -> pd.core.series.Series
          - the third quartile value
          - the maximum value
     You may want to brush up on some simple statistics to help you here.
-    Also, the series is passed to you sorted assending.
+    Also, the series is passed to you sorted ascending.
         Be sure that you don't return values out of sequence.
 
     So, for example if your mean is 5.0 and within is 0.1
@@ -137,20 +137,29 @@ def custom_series_function(ser: pd.Series, within: int) -> pd.core.series.Series
     :param within: The value to calculate the range of number within
     """
 
-    min = ser.min()
-    first_quartile = round(ser.quantile(0.25), 1)
-    second_quartile = round(ser.quantile(0.5), 1)
-    third_quartile = round(ser.quantile(0.75), 1)
-    max = ser.max()
-    ser_min = ser.between(min, round(min + within, 1))
-    print(ser[ser_min])
-    
 
-    # mean = ser.mean()
-    # lower_bound = round(mean - within, 1)
-    # upper_bound = round(mean + within, 1)
-    # print(lower_bound, mean, upper_bound)
-    # print(ser[ser.between(0, 0.1) or ser.between(lower_bound, upper_bound)])
+    min = ser.min()
+    mean = ser.mean()
+    max = ser.max()
+
+    first_quartile = ser.quantile(0.25)
+    second_quartile = ser.quantile(0.50)
+    third_quartile = ser.quantile(0.75)
+
+    first_quartile_bounds = [first_quartile - within, first_quartile + within]
+    second_quartile_bounds = [second_quartile - within, second_quartile + within]
+    mean_quartile_bounds = [mean - within, mean + within]
+    third_quartile_bounds = [third_quartile - within, third_quartile + within]
+
+    mask = ser.apply(lambda x:  
+                                x in [min, max] or
+                                (x >= first_quartile_bounds[0] and x <= first_quartile_bounds[1]) or
+                                (x >= second_quartile_bounds[0] and x <= second_quartile_bounds[1]) or
+                                (x >= mean_quartile_bounds[0] and x <= mean_quartile_bounds[1]) or
+                                (x >= third_quartile_bounds[0] and x <= third_quartile_bounds[1])
+                    )    
+
+    return ser[mask]
 
 
 if __name__ == "__main__":
