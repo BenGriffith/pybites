@@ -16,9 +16,7 @@ def pascal(N: int) -> List[int]:
             result.append([1, 1])
         else:
             result.append([1, 1])
-            print(result[-2])
             for i in range(len(result[-2])):
-                print(i)
                 if i == 0:
                     continue
                 result[-1].insert(1, result[-2][i - 1] + result[-2][i])
