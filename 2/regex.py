@@ -31,8 +31,6 @@ def get_all_hashtags_and_links(tweet=TWEET):
        '#APIs']
       Return this list.
    """
-
-   
    return re.findall(r"[a-zA-z]*#\S*|http://\S*", tweet) 
 
 
@@ -42,9 +40,10 @@ def match_first_paragraph(html=HTML):
       'pybites != greedy' (= content of first paragraph).
       Return this string.
    """
-   pass
+   return re.findall("<p>(.*?)</p>", html)[0]
 
 
 if __name__ == "__main__":
    #print(extract_course_times())
-   print(get_all_hashtags_and_links())
+   #print(get_all_hashtags_and_links())
+   print(match_first_paragraph())
