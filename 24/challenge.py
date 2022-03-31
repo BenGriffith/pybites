@@ -44,10 +44,3 @@ class BiteChallenge(Challenge):
     @property
     def pretty_title(self):
         return f"Bite {self.number}. {self.title}"
-
-
-# if __name__ == "__main__":
-#     bite = BiteChallenge(24, 'ABC and class inheritance', 'my result')
-#     print(bite.number, bite.title)
-#     print(bite.pretty_title)
-#     print(bite.verify("my result"))
