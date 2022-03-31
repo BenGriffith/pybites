@@ -6,16 +6,14 @@ class Challenge(ABC):
     def __init__(self, number, title):
         self.number = number
         self.title = title
-        self.pretty_title = self.pretty_title()
 
     @abstractmethod
     def verify(self):
-        return self
+        return "Subclassed obj should verify"
 
-    @property
     @abstractmethod
     def pretty_title(self):
-        return self
+        return "Subclassed obj should pretty_title"
 
 
 class BlogChallenge(Challenge):
@@ -28,6 +26,7 @@ class BlogChallenge(Challenge):
         if merged_prs in self.merged_prs:
             return merged_prs
 
+    @property
     def pretty_title(self):
         return f"PCC1 - {self.title}"
 
@@ -42,6 +41,7 @@ class BiteChallenge(Challenge):
         if result == self.result:
             return result
 
+    @property
     def pretty_title(self):
         return f"Bite {self.number}. {self.title}"
 
