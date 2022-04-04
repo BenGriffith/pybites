@@ -39,7 +39,8 @@ def get_most_popular_talks_by_like_ratio(videos):
        number of views, so 10 likes on 175 views ranks higher than
        12 likes on 300 views. Discount the dislikeCount from the likeCount.
        Return the filtered list"""
-    pass
+
+    return sorted(videos, key=lambda x: (int(x.metrics["likeCount"]) - int(x.metrics["dislikeCount"])) / int(x.metrics["viewCount"]), reverse=True)
 
 
 def get_talks_gt_one_hour(videos):
@@ -63,4 +64,4 @@ def get_talks_lt_twentyfour_min(videos):
     return videos_lt_24
 
 if __name__ == "__main__":
-    get_talks_lt_twentyfour_min(load_pycon_data())
+    get_most_popular_talks_by_like_ratio(load_pycon_data())
