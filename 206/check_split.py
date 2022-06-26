@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 def check_split(item_total, tax_rate, tip, people):
     """Calculate check value and evenly split.
 
@@ -11,19 +13,19 @@ def check_split(item_total, tax_rate, tip, people):
     """
     splits = []
 
-    item_total = float(item_total.lstrip("$"))
-    tax_rate = float(tax_rate.rstrip("%")) / 100
-    tip = float(tip.rstrip("%")) / 100
+    item_total = Decimal(item_total.lstrip("$"))
+    tax_rate = Decimal(tax_rate.rstrip("%")) / 100
+    tip = Decimal(tip.rstrip("%")) / 100
 
     total_with_tax = round(item_total + (item_total * tax_rate), 2)
-    total_with_tip = total_with_tax + (total_with_tax * tip)
+    total_with_tip = total_with_tax + round(total_with_tax * tip, 2)
 
-    grand_total = round(total_with_tip, 2)
-
+    grand_total = total_with_tip
+    
     while people != 0:
-        split = grand_total/people
+        split = round(grand_total/people, 2)
         splits.append(split)
-        grand_total -= split
+        grand_total = grand_total - split
         people -= 1
 
-    return (f"${total_with_tip:.2f}", sorted(splits, reverse=True))
+    return (f"${total_with_tip:.2f}", splits)
