@@ -33,7 +33,7 @@ def get_feed_entries(feed=FEED):
                date=entry_date, 
                title=_food_entry.get("title"), 
                link=_food_entry.get("link"), 
-               tags=_food_entry.get("tags")
+               tags=[value.lower() for tag in _food_entry.get("tags") for key, value in tag.items() if key == "term"]
                )
 
             entries.append(feed_entry)
@@ -52,7 +52,26 @@ def filter_entries_by_tag(search, entry):
          e.g. flask|django should match entries with either tag
       3. Else: match if search is in tags
    """
-   pass
+   search = search.lower()
+   is_match = False
+   if search.find("&") > 0:
+      terms = search.split("&")
+      for term in terms:
+         if term in entry.tags:
+            is_match = True
+         else:
+            is_match = False
+
+   elif search.find("|") > 0:
+      terms = search.split("|")
+      for term in terms:
+         if term in entry.tags:
+            is_match = True
+   else:
+      if search in entry.tags:
+         is_match = True
+
+   return is_match
 
 
 def main():
@@ -67,9 +86,15 @@ def main():
       6. Secondly, print the number of matches: 'n entries matched'
          (use entry if only 1 match)
    """
-   pass
+   feed_entries = get_feed_entries()
+
+   for entry in feed_entries[:1]:
+      print(entry)
+      is_match = filter_entries_by_tag("nothing|ok", entry)
+      print(is_match)
+      
 
 
 if __name__ == '__main__':
-   #main()
-   get_feed_entries()
+   main()
+   #get_feed_entries()
