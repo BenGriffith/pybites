@@ -5,7 +5,6 @@ class IntList(list):
 
     @property
     def mean(self):
-        print(self)
         return sum(self) / len(self)
 
     @property
