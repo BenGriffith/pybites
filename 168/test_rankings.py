@@ -92,75 +92,75 @@ def test_dumping_lowest_ranking_fist_ninjas(ninja_ranks):
 # highest / lowest ninjas in rankings
 
 
-# def test_highest_ranking_no_arg(ninja_ranks):
-#     actual = ninja_ranks.highest()
-#     expected = [Ninja(name="snow", bites=283)]
-#     assert actual == expected
+def test_highest_ranking_no_arg(ninja_ranks):
+    actual = ninja_ranks.highest()
+    expected = [Ninja(name="snow", bites=283)]
+    assert actual == expected
 
 
-# def test_lowest_ranking_no_arg(ninja_ranks):
-#     actual = ninja_ranks.lowest()
-#     expected = [Ninja(name="sam", bites=195)]
-#     assert actual == expected
+def test_lowest_ranking_no_arg(ninja_ranks):
+    actual = ninja_ranks.lowest()
+    expected = [Ninja(name="sam", bites=195)]
+    assert actual == expected
 
 
-# def test_lowest_ranking_with_arg(ninja_ranks):
-#     actual = ninja_ranks.lowest(3)
-#     expected = [
-#         Ninja(name="sam", bites=195),
-#         Ninja(name="sara", bites=196),
-#         Ninja(name="james", bites=197),
-#     ]
-#     assert actual == expected
+def test_lowest_ranking_with_arg(ninja_ranks):
+    actual = ninja_ranks.lowest(3)
+    expected = [
+        Ninja(name="sam", bites=195),
+        Ninja(name="sara", bites=196),
+        Ninja(name="james", bites=197),
+    ]
+    assert actual == expected
 
 
-# def test_adding_a_ninja(ninja_ranks):
-#     ninja_ranks.add(Ninja(name="sam", bites=195))
-#     assert len(ninja_ranks) == 12
+def test_adding_a_ninja(ninja_ranks):
+    ninja_ranks.add(Ninja(name="sam", bites=195))
+    assert len(ninja_ranks) == 12
 
 
-# def test_lowest_ranking_after_adding_more_ninjas(ninja_ranks):
-#     actual = ninja_ranks.lowest(3)
-#     expected = [
-#         Ninja(name="sam", bites=195),
-#         Ninja(name="sara", bites=196),
-#         Ninja(name="james", bites=197),
-#     ]
-#     assert actual == expected
+def test_lowest_ranking_after_adding_more_ninjas(ninja_ranks):
+    actual = ninja_ranks.lowest(3)
+    expected = [
+        Ninja(name="sam", bites=195),
+        Ninja(name="sara", bites=196),
+        Ninja(name="james", bites=197),
+    ]
+    assert actual == expected
 
-#     # now add the ninjas of first_ninja_ranks
-#     for ninja in SECOND_NINJAS:
-#         ninja_ranks.add(ninja)
+    # now add the ninjas of first_ninja_ranks
+    for ninja in SECOND_NINJAS:
+        ninja_ranks.add(ninja)
 
-#     # check highest, they should have been added
-#     actual = ninja_ranks.highest(3)
-#     expected = [
-#         Ninja(name="noah", bites=470),
-#         Ninja(name="doug", bites=469),
-#         Ninja(name="steve", bites=468),
-#     ]
-#     assert actual == expected
+    # check highest, they should have been added
+    actual = ninja_ranks.highest(3)
+    expected = [
+        Ninja(name="noah", bites=470),
+        Ninja(name="doug", bites=469),
+        Ninja(name="steve", bites=468),
+    ]
+    assert actual == expected
 
 
 # pairing of ninjas
 
 
-# def test_pairing_with_no_arg(ninja_ranks):
-#     actual = ninja_ranks.pair_up()
-#     assert len(actual) == 3
+def test_pairing_with_no_arg(ninja_ranks):
+    actual = ninja_ranks.pair_up()
+    assert len(actual) == 3
 
-#     expected = (Ninja(name="natalia", bites=282), Ninja(name="sara", bites=196))
-#     assert actual[1] == expected
+    expected = (Ninja(name="natalia", bites=282), Ninja(name="sara", bites=196))
+    assert actual[1] == expected
 
 
-# def test_pairing_with_count_arg(ninja_ranks):
-#     actual = ninja_ranks.pair_up(5)
-#     assert len(actual) == 5
+def test_pairing_with_count_arg(ninja_ranks):
+    actual = ninja_ranks.pair_up(5)
+    assert len(actual) == 5
 
-#     expected = (Ninja(name="snow", bites=283),
-#                 Ninja(name="sam", bites=195))
-#     assert actual[0] == expected
+    expected = (Ninja(name="snow", bites=283),
+                Ninja(name="sam", bites=195))
+    assert actual[0] == expected
 
-#     expected = (Ninja(name="maria", bites=255),
-#                 Ninja(name="kenneth", bites=216))
-#     assert actual[-1] == expected
+    expected = (Ninja(name="maria", bites=255),
+                Ninja(name="kenneth", bites=216))
+    assert actual[-1] == expected

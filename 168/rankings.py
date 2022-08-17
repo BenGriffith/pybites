@@ -69,15 +69,23 @@ class Rankings:
         return self
 
     def dump(self):
-        lowest_ranking_index = 0
-        lowest_ranking_bites = 9999
-        for i in range(len(self.ninjas)):
-            if self.ninjas[i].bites < lowest_ranking_bites:
-                lowest_ranking_index = i
-                lowest_ranking_bites = self.ninjas[i].bites
-        return self.ninjas.pop(lowest_ranking_index)
+        self.ninjas.sort(key=lambda x: x.bites, reverse=True)
+        return self.ninjas.pop()
 
+    def highest(self, count=None):
+        self.ninjas.sort(key=lambda x: x.bites, reverse=True)
+        if count:
+            return self.ninjas[:count]
+        return self.ninjas[:1]
 
+    def lowest(self, count=None):
+        self.ninjas.sort(key=lambda x: x.bites)
+        if count:
+            return self.ninjas[:count]
+        return self.ninjas[:1]
+
+    def pair_up(self, count=3):
+        return list(zip(self.highest(count), self.lowest(count)))
 
 
 if __name__ == "__main__":
@@ -88,3 +96,4 @@ if __name__ == "__main__":
     rankings.add(jess)
     print(len(rankings))
     print(rankings)
+    print(rankings.lowest())
