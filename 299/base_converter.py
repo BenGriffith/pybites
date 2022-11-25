@@ -16,23 +16,6 @@ def convert(number: int, base: int = 2) -> str:
     if base < 2 or base > 36:
         raise ValueError
 
-    """
-    numbers + characters => values
-    put values in a list and each index is the key
-    
-    result = number // base
-    push result to list    
-    check result < base
-    if true then 
-        result2 = number % base
-        push result2 to list
-        stop
-    else
-        result2 = number % base
-        push result2 to list
-        continue
-
-    """
     lookup = [str(num) for num in range(10)] + list(ascii_uppercase)
     remainder = []
 
