@@ -6,3 +6,4 @@ pyvenv.cfg
 */git.txt
 */.pytest_cache
 */tmp/
+share/
