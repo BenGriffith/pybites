@@ -1,0 +1,24 @@
+<p>Python has a brilliant but often overlooked module called <a href="https://docs.python.org/3/library/calendar.html" target="_blank" rel="noopener">calendar</a>.</p>
+<p>In this Bite we use this module to print out well formatted months and a list of significant dates for each month.&nbsp;</p>
+<p>Just for fun, we always add an entry for Pi Day (&pi; Day) on 3/14.</p>
+<h3>Learner's Task</h3>
+<p>The function you will build accepts a year and a list of significant dates. Each significant date is made of a tuple, containing two integers representing the month and day of the year, and a string for the date's description.</p>
+<p>Examples of the format the function expects is in the docstring on the starter code.</p>
+<p>Print out (do NOT return), a calendar of each month with one of the dates (with the first day of the week being Sunday), followed by a line for each of the events in that month showing day of the week, day of the month then the event description, sorted by day of the week in Monday - Sunday order.</p>
+<p>Logically, we could make this match the month printout and start with Sunday rather than Monday,&nbsp;&nbsp;but that would be a bit trickier to code, so I left it simple for you.</p>
+<p>There's nothing stopping you from doing this after you solve the Bite, and showing your work in the Bite forum :)</p>
+<p>Always add &pi; Day (3/14) as a date whether it is entered or not. So at a minimum, you will print a calendar for March and a listing for &pi; Day on 3/14. Obviously the day of the week &pi; Day falls on will vary depending on the year.</p>
+<p><span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">If the year passed into the function is not valid (an integer between 1 and 9999)&nbsp; raise an <code>InvalidYear</code> exception.</span></p>
+<p>This custom exception has been supplied for you.</p>
+<p>For simplicity, we assume that all significant date (month, day) tuples are valid so there is no need to validate this.</p>
+<p>As an extra challenge, there is a calendar function that prints a calendar month. Why not use that instead of saving the&nbsp;calendar to a string and printing it out?</p>
+<p>Talking of Pi Day, why not celebrate completing this Bite with another Bite - of yummy Pie!</p>
+<h3>Example</h3>
+<p>Perhaps this will be easier with an example.</p>
+<pre>&gt;&gt;&gt; from calendar_add_pi_day import create_calendar
+&gt;&gt;&gt; create_calendar(2000, [(2, 27, 'No Brainer Day')])</pre>
+<p>Should print:</p>
+<pre>  &nbsp;February 2000<br />Su Mo Tu We Th Fr Sa<br />  &nbsp; &nbsp; &nbsp;1&nbsp; 2&nbsp; 3&nbsp; 4&nbsp; 5<br /> 6&nbsp; 7&nbsp; 8&nbsp; 9 10 11 12<br />13 14 15 16 17 18 19<br />20 21 22 23 24 25 26<br />27 28 29<br />Sunday: No Brainer Day<br /><br />  &nbsp; &nbsp;March 2000<br />Su Mo Tu We Th Fr Sa<br />  &nbsp; &nbsp; &nbsp; &nbsp; 1&nbsp; 2&nbsp; 3&nbsp; 4<br /> 5&nbsp; 6&nbsp; 7&nbsp; 8&nbsp; 9 10 11<br />12 13 14 15 16 17 18<br />19 20 21 22 23 24 25<br />26 27 28 29 30 31<br />Tuesday: &pi; Day</pre>
+<p>&nbsp;</p>
+<p><strong>NOTE</strong>: The calendar accounts for February 29 in leap years. You get this for free - no need to code it!</p>
+<p>Keep calm and code in Python!</p>
