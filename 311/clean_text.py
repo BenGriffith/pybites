@@ -28,7 +28,7 @@ def load_data():
     # Load the text and populate a Pandas Dataframe
     # The order of the sample text strings should not be changed
     # Return the Dataframe with the index and 'text' column
-    text = pd.read_csv("tmp/samples.txt")
+    text = pd.read_csv("/tmp/samples.txt")
     return text
 
 
