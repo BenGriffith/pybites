@@ -20,8 +20,8 @@ def _setup():
 
 _setup()
 
-from tmp.stop_words import stop_words
-from tmp.tf_idf import TFIDF
+from stop_words import stop_words
+from tf_idf import TFIDF
 
 
 def load_data():
